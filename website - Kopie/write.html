@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeichenseite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0em; }
+        .info { margin-bottom: 1em; color: #333; }
+        canvas { border: 1px solid #888; display: block; margin-bottom: 1em; touch-action: none; width: 100%; height: 5000px; background: #fff; }
+        .clear-btn { padding: 0.5em 1em; font-size: 1em; background-color: #f44336; color: white; border: none; cursor: pointer; position: fixed; top: 10px; right: 10px; z-index: 1000; }
+        .back { padding: 0.5em 1em; font-size: 1em; background-color: #4CAF50; color: white; border: none; cursor: pointer; position: fixed; top: 10px; left: 10px; z-index: 1000; }
+    </style>
+</head>
+<body>
+    <button class="back" onclick="back()">back</button>
+    <button class="clear-btn" onclick="clearCanvas()">clear</button>
+    <canvas id="zeichenfeld" width="1920" height="5000"></canvas>
+    <script>
+        const canvas = document.getElementById('zeichenfeld');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        function back() {
+            window.location.href = 'index.html'; // Zurück zur Startseite
+        }
+        function getPos(e) {
+            if (e.touches && e.touches.length > 0) {
+                return {
+                    x: e.touches[0].clientX - canvas.getBoundingClientRect().left,
+                    y: e.touches[0].clientY - canvas.getBoundingClientRect().top
+                };
+            } else {
+                return {
+                    x: e.clientX - canvas.getBoundingClientRect().left,
+                    y: e.clientY - canvas.getBoundingClientRect().top
+                };
+            }
+        }
+
+        function startDraw(e) {
+            drawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            const pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDraw() {
+            drawing = false;
+            ctx.closePath();
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Maus-Events
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('mouseleave', stopDraw);
+
+        // Touch-Events für Mobilgeräte
+        canvas.addEventListener('touchstart', function(e) { startDraw(e); e.preventDefault(); });
+        canvas.addEventListener('touchmove', function(e) { draw(e); e.preventDefault(); });
+        canvas.addEventListener('touchend', function(e) { stopDraw(e); e.preventDefault(); });
+    </script>
+</body>
+</html>

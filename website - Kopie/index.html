@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Satzbaukasten</title>
+<link id="stylesheet" rel="stylesheet" href="style.css" />
+<script src="code.js" defer></script>
+</head>
+<body>
+<div class="container">
+  <div class="header"> 
+    <a class="gj">Wir<a class="gh">lernen<a class="gj">Satz<a class="gh">aufbau<a class="j">.de</a>
+    <a class="g">Definition</a>
+    <a class="g">Satzgefüge</a>
+    <a class="g">Satzreihe </a>
+    <a class="g">Umstellprobe</a>
+    <a class="g">Über uns</a>
+    <a class="g">Kontakt</a>
+    <a class="q">Login</a>
+  </div>
+
+  <h1 class="h1">Wie geht der perfekte Satzbau?</h1>
+  <a class="h2">100% kostenlose Beratung</a>
+  <a class="h2">Schnell und einfach</a>
+  <a class="h2">Beispiele direkt online erhalten</a>
+
+  <div class="form">
+    <form>
+      <h1 class="h12">Gib die Details zum Satzbaustein ein und finde es heraus!</h1>
+    </form>
+
+    <!-- 1. Frage -->
+    <div class="abd"><a><b>1. Was für ein Satzbau?</b></a></div>
+    <div>
+      <select id="satzglied" class="select" onchange="updateFolgefrage()">
+        <option value="">-- Bitte wählen --</option>
+        <option value="Satzreihe">Satzreihe</option>
+        <option value="Satzgefüge">Satzgefüge</option>
+      </select>
+    </div>
+
+    <div class="abc">
+      <a class="texta"><b >2. Gib deinen Satz ein</b></a><br />
+      <input class="select" type="text" id="satzInput" class="input" placeholder="-- Bitte Eingeben --'" />
+    </div>
+
+    <div style="margin-top: 1em;">
+      <button onclick="zeigeErklaerung()" class="button">Erklärung anzeigen</button>
+    </div>
+
+    <p id="erklärung" class="Erklärung"></p>
+  </div>
+</div>
+
+
+</body>
+</html>
